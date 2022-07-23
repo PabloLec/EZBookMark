@@ -1,10 +1,22 @@
 package dev.pablolec.ezbookmark.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Bookmark {
+    @PrimaryKey(autoGenerate = true)
+    public int uid;
+
+    @ColumnInfo(name = "name")
     private String name;
+
+    @ColumnInfo(name = "url")
     private String url;
 
-    public Bookmark(String name, String url) {
+    public Bookmark(int uid, String name, String url) {
+        this.uid = uid;
         this.name = name;
         this.url = url;
     }
