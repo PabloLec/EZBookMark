@@ -1,4 +1,4 @@
-package dev.pablolec.ezboookmark;
+package dev.pablolec.ezbookmark;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("dev.pablolec.ezboookmark", appContext.getPackageName());
+        assertEquals("dev.pablolec.ezbookmark", appContext.getPackageName());
     }
 }

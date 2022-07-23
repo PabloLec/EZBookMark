@@ -1,4 +1,4 @@
-package dev.pablolec.ezboookmark;
+package dev.pablolec.ezbookmark;
 
 import android.app.Application;
 import android.content.Context;

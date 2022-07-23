@@ -1,4 +1,4 @@
-package dev.pablolec.ezboookmark.model;
+package dev.pablolec.ezbookmark.model;
 
 public class Bookmark {
     private String url;

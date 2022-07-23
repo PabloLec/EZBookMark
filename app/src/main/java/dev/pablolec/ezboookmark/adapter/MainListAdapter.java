@@ -1,4 +1,4 @@
-package dev.pablolec.ezboookmark.adapter;
+package dev.pablolec.ezbookmark.adapter;
 
 import android.content.Context;
 import android.database.DataSetObserver;
@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import dev.pablolec.ezboookmark.R;
-import dev.pablolec.ezboookmark.model.Bookmark;
+import dev.pablolec.ezbookmark.R;
+import dev.pablolec.ezbookmark.model.Bookmark;
 
 public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.ViewHolder> {
 

@@ -1,4 +1,4 @@
-package dev.pablolec.ezboookmark.dao;
+package dev.pablolec.ezbookmark.dao;
 
 import com.google.gson.GsonBuilder;
 
@@ -7,8 +7,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
-import dev.pablolec.ezboookmark.App;
-import dev.pablolec.ezboookmark.model.Bookmark;
+import dev.pablolec.ezbookmark.App;
+import dev.pablolec.ezbookmark.model.Bookmark;
 
 public class BookmarkDao {
     private final String testDataBaseFile = "database.json";

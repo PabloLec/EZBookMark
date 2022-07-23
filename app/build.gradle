@@ -6,7 +6,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "dev.pablolec.ezboookmark"
+        applicationId "dev.pablolec.ezbookmark"
         minSdk 23
         targetSdk 32
         versionCode 1

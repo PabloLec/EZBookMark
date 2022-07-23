@@ -1,4 +1,4 @@
-package dev.pablolec.ezboookmark;
+package dev.pablolec.ezbookmark;
 
 import org.junit.Test;
 

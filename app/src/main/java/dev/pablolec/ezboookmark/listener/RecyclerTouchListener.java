@@ -1,4 +1,4 @@
-package dev.pablolec.ezboookmark.listener;
+package dev.pablolec.ezbookmark.listener;
 
 import android.content.Context;
 import android.view.GestureDetector;

@@ -1,4 +1,4 @@
-package dev.pablolec.ezboookmark;
+package dev.pablolec.ezbookmark;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,10 +13,10 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import dev.pablolec.ezboookmark.adapter.MainListAdapter;
-import dev.pablolec.ezboookmark.dao.BookmarkDao;
-import dev.pablolec.ezboookmark.listener.RecyclerTouchListener;
-import dev.pablolec.ezboookmark.model.Bookmark;
+import dev.pablolec.ezbookmark.adapter.MainListAdapter;
+import dev.pablolec.ezbookmark.dao.BookmarkDao;
+import dev.pablolec.ezbookmark.listener.RecyclerTouchListener;
+import dev.pablolec.ezbookmark.model.Bookmark;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView mMainRecyclerView;
