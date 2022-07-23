@@ -19,7 +19,7 @@ import dev.pablolec.ezbookmark.model.Bookmark;
 
 public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.ViewHolder> {
 
-    private List<Bookmark> bookmarkList;
+    private final List<Bookmark> bookmarkList;
 
     /**
      * Provide a reference to the type of views that you are using
@@ -32,7 +32,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.ViewHo
             super(view);
             // Define click listener for the ViewHolder's View
 
-            textView = (TextView) view.findViewById(R.id.url_text_view);
+            textView = (TextView) view.findViewById(R.id.bookmark_name_text_view);
         }
 
         public TextView getTextView() {
@@ -61,7 +61,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.ViewHo
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getTextView().setText(bookmarkList.get(position).getUrl());
+        viewHolder.getTextView().setText(bookmarkList.get(position).getName());
     }
 
     // Return the size of your dataset (invoked by the layout manager)
