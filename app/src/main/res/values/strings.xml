@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ezbookmark</string>
     <string name="missing_text">MISSING TEXT</string>
+    <string name="favicon">Favicon</string>
 </resources>
