@@ -8,9 +8,13 @@ import androidx.room.RoomDatabase;
 
 import dev.pablolec.ezbookmark.App;
 import dev.pablolec.ezbookmark.dao.BookmarkDao;
+import dev.pablolec.ezbookmark.dao.BookmarkListCrossRefDao;
+import dev.pablolec.ezbookmark.dao.BookmarkListDao;
 import dev.pablolec.ezbookmark.model.Bookmark;
+import dev.pablolec.ezbookmark.model.BookmarkList;
+import dev.pablolec.ezbookmark.model.BookmarkListCrossRef;
 
-@Database(entities = {Bookmark.class}, version = 1)
+@Database(entities = {Bookmark.class, BookmarkList.class, BookmarkListCrossRef.class}, version = 1)
 public abstract class LocalDatabase extends RoomDatabase {
     private static volatile LocalDatabase instance;
 
@@ -25,4 +29,6 @@ public abstract class LocalDatabase extends RoomDatabase {
     }
 
     public abstract BookmarkDao bookmarkDao();
+    public abstract BookmarkListDao bookmarkListDao();
+    public abstract BookmarkListCrossRefDao bookmarkListCrossRefDao();
 }

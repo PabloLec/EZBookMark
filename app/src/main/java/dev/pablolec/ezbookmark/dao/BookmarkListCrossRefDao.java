@@ -13,6 +13,9 @@ import dev.pablolec.ezbookmark.model.BookmarkListCrossRef;
 
 @Dao
 public interface BookmarkListCrossRefDao {
+    @Query("SELECT bookmarkId FROM BookmarkListCrossRef WHERE bookmarkListId = :bookmarkListId")
+    List<Integer> getBookmarksByList(int bookmarkListId);
+
     @Query("SELECT * FROM BookmarkListCrossRef")
     List<Bookmark> getAll();
 

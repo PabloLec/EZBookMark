@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
         localDatabase = LocalDatabase.getDatabase(getActivity().getApplicationContext());
-        // testPrePopulateDB(); // DEV
+        testPrePopulateDB(); // DEV
         mMainRecyclerView = binding.getRoot().findViewById(R.id.main_recycler_view);
         mMainRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         try {

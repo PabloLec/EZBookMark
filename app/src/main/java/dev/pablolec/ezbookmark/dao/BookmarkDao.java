@@ -14,6 +14,9 @@ public interface BookmarkDao {
     @Query("SELECT * FROM bookmark")
     List<Bookmark> getAll();
 
+    @Query("SELECT * FROM bookmark WHERE bookmarkId IN (:ids)")
+    List<Bookmark> getById(List<Integer> ids);
+
     @Insert
     void insertAll(Bookmark... bookmarks);
 

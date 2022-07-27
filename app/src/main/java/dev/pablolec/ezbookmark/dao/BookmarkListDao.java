@@ -12,8 +12,8 @@ import dev.pablolec.ezbookmark.model.BookmarkList;
 
 @Dao
 public interface BookmarkListDao {
-    @Query("SELECT * FROM bookmarkList")
-    List<Bookmark> getAll();
+    @Query("SELECT * FROM bookmarklist")
+    List<BookmarkList> getAll();
 
     @Insert
     void insertAll(BookmarkList... bookmarkLists);
