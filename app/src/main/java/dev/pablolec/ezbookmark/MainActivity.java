@@ -3,6 +3,7 @@ package dev.pablolec.ezbookmark;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
@@ -11,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.GsonBuilder;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -35,10 +37,6 @@ import dev.pablolec.ezbookmark.repository.LocalDatabase;
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    private RecyclerView mMainRecyclerView;
-    private MainListAdapter mMainListAdapter;
-    private List<Bookmark> bookmarkList;
-    private LocalDatabase localDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +45,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setUpUI();
-        localDatabase = LocalDatabase.getDatabase(getApplicationContext());
-        testPrePopulateDB(); // DEV
-        mMainRecyclerView = findViewById(R.id.main_recycler_view);
-        mMainRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        try {
-            loadBookmarks();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
     private void setUpUI() {
@@ -75,8 +63,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         getMenuInflater().inflate(R.menu.nav_drawer, menu);
         return true;
     }
@@ -88,43 +75,5 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    private void loadBookmarks() throws Exception {
-        bookmarkList = localDatabase.bookmarkDao().getAll();
-        mMainListAdapter = new MainListAdapter(bookmarkList);
-        mMainRecyclerView.setAdapter(mMainListAdapter);
-        mMainRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mMainRecyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Toast.makeText(getApplication(), bookmarkList.get(position).getUrl(), Toast.LENGTH_SHORT).show();
-                String url = bookmarkList.get(position).getUrl();
-                if (url != null) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                }
-            }
 
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
-    }
-
-    private void testPrePopulateDB() {
-        InputStream is;
-        try {
-            is = App.getContext().getAssets().open("database.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            String jsonString = new String(buffer, StandardCharsets.UTF_8);
-
-            Bookmark[] bookMarkArray = new GsonBuilder().create().fromJson(jsonString, Bookmark[].class);
-            localDatabase.bookmarkDao().insertAll(bookMarkArray);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

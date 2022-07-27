@@ -28,7 +28,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.ViewHo
             super(view);
             // Define click listener for the ViewHolder's View
 
-            textView = (TextView) view.findViewById(R.id.bookmark_name_text_view);
+            textView = view.findViewById(R.id.bookmark_name_text_view);
         }
 
         public TextView getTextView() {
