@@ -4,15 +4,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.MenuHost;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.ui.AppBarConfiguration;
+import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +29,6 @@ import java.util.List;
 import dev.pablolec.ezbookmark.App;
 import dev.pablolec.ezbookmark.R;
 import dev.pablolec.ezbookmark.adapter.MainListAdapter;
-import dev.pablolec.ezbookmark.databinding.ActivityMainBinding;
 import dev.pablolec.ezbookmark.databinding.FragmentHomeBinding;
 import dev.pablolec.ezbookmark.listener.RecyclerTouchListener;
 import dev.pablolec.ezbookmark.model.Bookmark;
@@ -40,11 +42,13 @@ public class HomeFragment extends Fragment {
     private List<Bookmark> bookmarkList;
     private LocalDatabase localDatabase;
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+
         localDatabase = LocalDatabase.getDatabase(getActivity().getApplicationContext());
-        testPrePopulateDB(); // DEV
+        // testPrePopulateDB(); // DEV
         mMainRecyclerView = binding.getRoot().findViewById(R.id.main_recycler_view);
         mMainRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         try {

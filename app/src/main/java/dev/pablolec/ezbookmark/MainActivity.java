@@ -1,17 +1,11 @@
 package dev.pablolec.ezbookmark;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
-import com.google.gson.GsonBuilder;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -20,20 +14,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-
-import dev.pablolec.ezbookmark.adapter.MainListAdapter;
 import dev.pablolec.ezbookmark.databinding.ActivityMainBinding;
-import dev.pablolec.ezbookmark.databinding.ActivityMainBinding;
-import dev.pablolec.ezbookmark.listener.RecyclerTouchListener;
-import dev.pablolec.ezbookmark.model.Bookmark;
-import dev.pablolec.ezbookmark.repository.LocalDatabase;
 
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
@@ -65,18 +47,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
-        getMenuInflater().inflate(R.menu.nav_drawer, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_activity_main_sort:
-                Toast.makeText(this, "SORT", Toast.LENGTH_LONG).show();
+            case R.id.menu_main_add:
+                Toast.makeText(this, "BOOKMARK ADD", Toast.LENGTH_LONG).show();
                 return true;
-            case R.id.menu_activity_main_search:
-                Toast.makeText(this, "SEARCH", Toast.LENGTH_LONG).show();
+            case R.id.menu_main_sort:
+                Toast.makeText(this, "BOOKMARK SORT", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.menu_main_search:
+                Toast.makeText(this, "BOOKMARK SEARCH", Toast.LENGTH_LONG).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
