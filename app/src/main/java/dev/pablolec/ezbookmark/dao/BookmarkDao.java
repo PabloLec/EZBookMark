@@ -5,14 +5,8 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.google.gson.GsonBuilder;
-
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 
-import dev.pablolec.ezbookmark.App;
 import dev.pablolec.ezbookmark.model.Bookmark;
 
 @Dao

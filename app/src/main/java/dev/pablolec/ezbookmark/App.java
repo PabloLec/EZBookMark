@@ -3,8 +3,6 @@ package dev.pablolec.ezbookmark;
 import android.app.Application;
 import android.content.Context;
 
-import dev.pablolec.ezbookmark.repository.LocalDatabase;
-
 public class App extends Application {
     private static Application sApplication;
     public static Application getApplication() {
