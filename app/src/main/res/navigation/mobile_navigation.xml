@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="dev.pablolec.ezbookmark.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_lists"
+        android:name="dev.pablolec.ezbookmark.ui.lists.ListsFragment"
+        android:label="@string/menu_lists"
+        tools:layout="@layout/fragment_lists" />
 
     <fragment
         android:id="@+id/nav_slideshow"
