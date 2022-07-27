@@ -5,20 +5,16 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class Bookmark {
+public class BookmarkList {
     @PrimaryKey(autoGenerate = true)
-    public int bookmarkId;
+    public int bookmarkListId;
 
     @ColumnInfo(name = "name")
     private String name;
 
-    @ColumnInfo(name = "url")
-    private String url;
-
-    public Bookmark(int uid, String name, String url) {
-        this.bookmarkId = uid;
+    public BookmarkList(int uid, String name, String url) {
+        this.bookmarkListId = uid;
         this.name = name;
-        this.url = url;
     }
 
     public String getName() {
@@ -29,11 +25,5 @@ public class Bookmark {
         this.name = name;
     }
 
-    public String getUrl() {
-        return url;
-    }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }

@@ -8,18 +8,19 @@ import androidx.room.Query;
 import java.util.List;
 
 import dev.pablolec.ezbookmark.model.Bookmark;
+import dev.pablolec.ezbookmark.model.BookmarkList;
 
 @Dao
-public interface BookmarkDao {
-    @Query("SELECT * FROM bookmark")
+public interface BookmarkListDao {
+    @Query("SELECT * FROM bookmarkList")
     List<Bookmark> getAll();
 
     @Insert
-    void insertAll(Bookmark... bookmarks);
+    void insertAll(BookmarkList... bookmarkLists);
 
     @Insert
-    void insert(Bookmark bookmark);
+    void insert(BookmarkList bookmarkList);
 
     @Delete
-    void delete(Bookmark bookmark);
+    void delete(BookmarkList bookmarkList);
 }

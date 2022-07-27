@@ -18,14 +18,8 @@ public class ListsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ListsModel listsModel =
-                new ViewModelProvider(this).get(ListsModel.class);
-
         binding = FragmentListsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        final TextView textView = binding.textLists;
-        listsModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
