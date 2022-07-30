@@ -18,17 +18,23 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.ViewHo
     private List<Bookmark> bookmarkList;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textView;
+        private final TextView wordItemView;
 
-        public ViewHolder(View view) {
-            super(view);
-
-            textView = view.findViewById(R.id.bookmark_name_text_view);
+        private ViewHolder(View itemView) {
+            super(itemView);
+            wordItemView = itemView.findViewById(R.id.textView);
         }
 
-        public TextView getTextView() {
-            return textView;
+        public void bind(String text) {
+            wordItemView.setText(text);
         }
+
+        static ViewHolder create(ViewGroup parent) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.content_main, parent, false);
+            return new ViewHolder(view);
+        }
+
     }
 
     public MainListAdapter() {}

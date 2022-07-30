@@ -44,8 +44,6 @@ public class BookmarkPopUp {
         popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
-                //Close the window when clicked
                 popupWindow.dismiss();
                 return true;
             }

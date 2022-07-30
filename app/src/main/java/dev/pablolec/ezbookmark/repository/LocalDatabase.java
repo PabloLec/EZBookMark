@@ -6,6 +6,9 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import dev.pablolec.ezbookmark.App;
 import dev.pablolec.ezbookmark.dao.BookmarkDao;
 import dev.pablolec.ezbookmark.dao.BookmarkListCrossRefDao;
@@ -16,21 +19,23 @@ import dev.pablolec.ezbookmark.model.BookmarkListCrossRef;
 
 @Database(entities = {Bookmark.class, BookmarkList.class, BookmarkListCrossRef.class}, version = 1)
 public abstract class LocalDatabase extends RoomDatabase {
-    private static volatile LocalDatabase instance;
+        private static volatile LocalDatabase INSTANCE;
+        private static final int NUMBER_OF_THREADS = 4;
+        static final ExecutorService databaseWriteExecutor =
+                Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    public static synchronized LocalDatabase getDatabase(Context context) {
-        if (instance == null) {
-            instance = Room.databaseBuilder(context.getApplicationContext(),
-                            LocalDatabase.class, App.LOCAL_DATABASE)
-                    .allowMainThreadQueries()
-                    .build();
+        static LocalDatabase getDatabase(final Context context) {
+            if (INSTANCE == null) {
+                synchronized (LocalDatabase.class) {
+                    if (INSTANCE == null) {
+                        INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                                        LocalDatabase.class, App.LOCAL_DATABASE)
+                                .build();
+                    }
+                }
+            }
+            return INSTANCE;
         }
-        return instance;
-    }
-
-    public static synchronized LocalDatabase getDatabase() {
-        return instance;
-    }
 
     public abstract BookmarkDao bookmarkDao();
     public abstract BookmarkListDao bookmarkListDao();
