@@ -3,6 +3,7 @@ package dev.pablolec.ezbookmark.dao;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -17,10 +18,10 @@ public interface BookmarkDao {
     @Query("SELECT * FROM bookmark WHERE bookmarkId IN (:ids)")
     List<Bookmark> getById(List<Integer> ids);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Bookmark... bookmarks);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Bookmark bookmark);
 
     @Delete

@@ -3,6 +3,7 @@ package dev.pablolec.ezbookmark.dao;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -15,10 +16,10 @@ public interface BookmarkListDao {
     @Query("SELECT * FROM bookmarklist")
     List<BookmarkList> getAll();
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(BookmarkList... bookmarkLists);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(BookmarkList bookmarkList);
 
     @Delete

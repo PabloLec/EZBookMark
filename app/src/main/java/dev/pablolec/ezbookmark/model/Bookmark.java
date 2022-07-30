@@ -15,8 +15,7 @@ public class Bookmark {
     @ColumnInfo(name = "url")
     private String url;
 
-    public Bookmark(int bookmarkId, String name, String url) {
-        this.bookmarkId = bookmarkId;
+    public Bookmark(String name, String url) {
         this.name = name;
         this.url = url;
     }

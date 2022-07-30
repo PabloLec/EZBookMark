@@ -28,6 +28,10 @@ public abstract class LocalDatabase extends RoomDatabase {
         return instance;
     }
 
+    public static synchronized LocalDatabase getDatabase() {
+        return instance;
+    }
+
     public abstract BookmarkDao bookmarkDao();
     public abstract BookmarkListDao bookmarkListDao();
     public abstract BookmarkListCrossRefDao bookmarkListCrossRefDao();

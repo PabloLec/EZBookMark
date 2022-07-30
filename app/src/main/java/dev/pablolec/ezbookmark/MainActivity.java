@@ -16,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import dev.pablolec.ezbookmark.databinding.ActivityMainBinding;
+import dev.pablolec.ezbookmark.ui.popups.BookmarkPopUp;
 
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
@@ -55,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_main_add:
-                Toast.makeText(this, "BOOKMARK ADD", Toast.LENGTH_LONG).show();
+                BookmarkPopUp bookmarkPopUpClass = new BookmarkPopUp();
+                bookmarkPopUpClass.showPopupWindow(binding.navView);
                 return true;
             case R.id.menu_main_sort:
                 Toast.makeText(this, "BOOKMARK SORT", Toast.LENGTH_LONG).show();

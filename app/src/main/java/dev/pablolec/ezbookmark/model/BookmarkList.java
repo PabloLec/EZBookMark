@@ -16,8 +16,7 @@ public class BookmarkList {
     @ColumnInfo(name = "name")
     private String name;
 
-    public BookmarkList(int bookmarkListId, String name) {
-        this.bookmarkListId = bookmarkListId;
+    public BookmarkList(String name) {
         this.name = name;
     }
 
