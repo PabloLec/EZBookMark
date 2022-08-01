@@ -13,7 +13,6 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import dev.pablolec.ezbookmark.R;
-import dev.pablolec.ezbookmark.model.Bookmark;
 import dev.pablolec.ezbookmark.model.BookmarkList;
 import dev.pablolec.ezbookmark.repository.LocalDatabase;
 

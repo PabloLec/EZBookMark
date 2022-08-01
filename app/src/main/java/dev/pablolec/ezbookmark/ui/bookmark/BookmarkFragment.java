@@ -37,11 +37,10 @@ public class BookmarkFragment extends Fragment {
     private BookmarkAdapter mBookmarkAdapter;
     Observer<List<Bookmark>> bookmarkListUpdateObserver = new Observer<List<Bookmark>>() {
         @Override
-        public void onChanged(List<Bookmark> userArrayList) {
-            mBookmarkAdapter.updateBookmarkList(userArrayList);
+        public void onChanged(List<Bookmark> bookmarks) {
+            mBookmarkAdapter.updateBookmarkList(bookmarks);
         }
     };
-    private List<Bookmark> bookmarkList;
     private LocalDatabase localDatabase;
     private BookmarkViewModel viewModel;
 
@@ -52,7 +51,7 @@ public class BookmarkFragment extends Fragment {
 
         localDatabase = LocalDatabase.getDatabase(getActivity().getApplicationContext());
         // testPrePopulateDB(); // DEV
-        mMainRecyclerView = binding.getRoot().findViewById(R.id.main_recycler_view);
+        mMainRecyclerView = binding.getRoot().findViewById(R.id.bookmark_recycler_view);
         mMainRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         try {
             loadBookmarks();
@@ -76,8 +75,7 @@ public class BookmarkFragment extends Fragment {
         mMainRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity().getApplicationContext(), mMainRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Toast.makeText(getActivity().getApplication(), bookmarkList.get(position).getUrl(), Toast.LENGTH_SHORT).show();
-                String url = bookmarkList.get(position).getUrl();
+                String url = mBookmarkAdapter.getBookmark(position).getUrl();
                 if (url != null) {
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

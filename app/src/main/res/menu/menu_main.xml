@@ -5,19 +5,16 @@
     <item
         android:id="@+id/menu_main_add"
         android:icon="@drawable/baseline_add_black_24"
-        app:showAsAction="ifRoom"
-        android:title="Add">
-    </item>
+        android:title="Add"
+        app:showAsAction="ifRoom"></item>
     <item
         android:id="@+id/menu_main_sort"
         android:icon="@drawable/baseline_sort_black_24"
-        app:showAsAction="ifRoom"
-        android:title="Sort">
-    </item>
+        android:title="Sort"
+        app:showAsAction="ifRoom"></item>
     <item
         android:id="@+id/menu_main_search"
         android:icon="@drawable/baseline_search_black_24"
-        app:showAsAction="ifRoom"
-        android:title="Search">
-    </item>
+        android:title="Search"
+        app:showAsAction="ifRoom"></item>
 </menu>

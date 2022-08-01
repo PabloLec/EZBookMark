@@ -12,44 +12,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.pablolec.ezbookmark.R;
-import dev.pablolec.ezbookmark.model.Bookmark;
+import dev.pablolec.ezbookmark.model.BookmarkList;
 
-public class BookmarkAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class BookmarkListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    ArrayList<Bookmark> bookmarks;
+    ArrayList<BookmarkList> bookmarkLists;
 
-    public BookmarkAdapter() {
-        this.bookmarks = new ArrayList<>();
+    public BookmarkListAdapter() {
+        this.bookmarkLists = new ArrayList<>();
     }
 
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.bookmark_cell, parent, false);
+        View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.bookmark_list_cell, parent, false);
         return new RecyclerViewViewHolder(rootView);
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Bookmark bookmark = bookmarks.get(position);
+        BookmarkList bookmarkList = bookmarkLists.get(position);
         RecyclerViewViewHolder viewHolder = (RecyclerViewViewHolder) holder;
-        viewHolder.title.setText(bookmark.getName());
+        viewHolder.title.setText(bookmarkList.getName());
     }
 
     @Override
     public int getItemCount() {
-        return bookmarks.size();
+        return bookmarkLists.size();
     }
 
-    public Bookmark getBookmark(int index) {
-        return bookmarks.get(index);
-    }
-
-    public void updateBookmarkList(final List<Bookmark> bookmarks) {
-        this.bookmarks.clear();
-        this.bookmarks = (ArrayList<Bookmark>) bookmarks;
+    public void updateBookmarkList(final List<BookmarkList> bookmarkLists) {
+        this.bookmarkLists.clear();
+        this.bookmarkLists = (ArrayList<BookmarkList>) bookmarkLists;
         notifyDataSetChanged();
     }
 
@@ -58,7 +54,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         public RecyclerViewViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.bookmark_name_text_view);
+            title = itemView.findViewById(R.id.bookmark_list_name_text_view);
         }
     }
 }
