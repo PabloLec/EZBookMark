@@ -14,11 +14,11 @@ import java.util.List;
 import dev.pablolec.ezbookmark.R;
 import dev.pablolec.ezbookmark.model.Bookmark;
 
-public class MainListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class BookmarkAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     ArrayList<Bookmark> bookmarkArrayList;
 
-    public MainListAdapter() {
+    public BookmarkAdapter() {
         this.bookmarkArrayList = new ArrayList<Bookmark>();
     }
 

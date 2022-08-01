@@ -24,7 +24,7 @@ import java.util.List;
 
 import dev.pablolec.ezbookmark.App;
 import dev.pablolec.ezbookmark.R;
-import dev.pablolec.ezbookmark.adapter.MainListAdapter;
+import dev.pablolec.ezbookmark.adapter.BookmarkAdapter;
 import dev.pablolec.ezbookmark.databinding.FragmentHomeBinding;
 import dev.pablolec.ezbookmark.listener.RecyclerTouchListener;
 import dev.pablolec.ezbookmark.model.Bookmark;
@@ -34,11 +34,11 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
 
     private RecyclerView mMainRecyclerView;
-    private MainListAdapter mMainListAdapter;
+    private BookmarkAdapter mBookmarkAdapter;
     Observer<List<Bookmark>> bookmarkListUpdateObserver = new Observer<List<Bookmark>>() {
         @Override
         public void onChanged(List<Bookmark> userArrayList) {
-            mMainListAdapter.updateBookmarkList(userArrayList);
+            mBookmarkAdapter.updateBookmarkList(userArrayList);
         }
     };
     private List<Bookmark> bookmarkList;
@@ -71,8 +71,8 @@ public class HomeFragment extends Fragment {
     private void loadBookmarks() throws Exception {
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         localDatabase.bookmarkDao().getAllLive().observe(getViewLifecycleOwner(), bookmarkListUpdateObserver);
-        mMainListAdapter = new MainListAdapter();
-        mMainRecyclerView.setAdapter(mMainListAdapter);
+        mBookmarkAdapter = new BookmarkAdapter();
+        mMainRecyclerView.setAdapter(mBookmarkAdapter);
         mMainRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity().getApplicationContext(), mMainRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
