@@ -82,6 +82,7 @@ public class BookmarkListFragment extends FragmentWithMenu {
             public void onClick(View view, int position) {
                 if (isMenuAltLoaded) {
                     unloadAltMenu();
+                    unselectAll();
                     return;
                 }
             }
@@ -89,6 +90,7 @@ public class BookmarkListFragment extends FragmentWithMenu {
             @Override
             public void onLongClick(View view, int position) {
                 loadAltMenu();
+                addSelected(view);
                 ((BookmarkListAltMenu) menuAlt).setSelected(mBookmarkListAdapter.getBookmarkList(position));
                 ((BookmarkListAltMenu) menuAlt).setDeleteDialog(getDeleteDialog());
             }

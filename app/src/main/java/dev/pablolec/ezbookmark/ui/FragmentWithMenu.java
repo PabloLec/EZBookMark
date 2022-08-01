@@ -1,15 +1,23 @@
 package dev.pablolec.ezbookmark.ui;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FragmentWithMenu extends Fragment {
     protected MenuProvider menu;
     protected MenuProvider menuAlt;
     protected boolean isMenuAltLoaded = false;
+    protected List<View> selectedViews = new ArrayList<>();
+    private int selectedColor = Color.parseColor("#567845");
+    private int defaultColor = Color.parseColor("#ffffff");
 
     @Override
     public void onResume() {
@@ -60,6 +68,23 @@ public class FragmentWithMenu extends Fragment {
                     }
                 })
                 .setNegativeButton("No", null).create();
+    }
+
+    protected void addSelected(View view) {
+        view.setBackgroundColor(selectedColor);
+        selectedViews.add(view);
+    }
+
+    protected void removeSelected(View view) {
+        view.setBackgroundColor(defaultColor);
+        selectedViews.remove(view);
+    }
+
+    protected void unselectAll() {
+        for (View view : selectedViews) {
+            view.setBackgroundColor(defaultColor);
+        }
+        selectedViews.clear();
     }
 
 }

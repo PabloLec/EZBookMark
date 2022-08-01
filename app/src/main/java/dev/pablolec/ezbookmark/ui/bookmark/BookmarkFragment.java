@@ -91,6 +91,7 @@ public class BookmarkFragment extends FragmentWithMenu {
             public void onClick(View view, int position) {
                 if (isMenuAltLoaded) {
                     unloadAltMenu();
+                    unselectAll();
                     return;
                 }
                 String url = mBookmarkAdapter.getBookmark(position).getUrl();
@@ -104,6 +105,7 @@ public class BookmarkFragment extends FragmentWithMenu {
             @Override
             public void onLongClick(View view, int position) {
                 loadAltMenu();
+                addSelected(view);
                 ((BookmarkAltMenu) menuAlt).setSelected(mBookmarkAdapter.getBookmark(position));
                 ((BookmarkAltMenu) menuAlt).setDeleteDialog(getDeleteDialog());
             }
