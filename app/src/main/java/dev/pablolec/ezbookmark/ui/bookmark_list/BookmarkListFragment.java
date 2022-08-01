@@ -1,4 +1,4 @@
-package dev.pablolec.ezbookmark.ui.lists;
+package dev.pablolec.ezbookmark.ui.bookmark_list;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,15 +8,15 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import dev.pablolec.ezbookmark.databinding.FragmentListsBinding;
+import dev.pablolec.ezbookmark.databinding.FragmentBookmarkListBinding;
 
-public class ListsFragment extends Fragment {
+public class BookmarkListFragment extends Fragment {
 
-    private FragmentListsBinding binding;
+    private FragmentBookmarkListBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentListsBinding.inflate(inflater, container, false);
+        binding = FragmentBookmarkListBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         return root;
     }
