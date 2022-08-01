@@ -33,6 +33,8 @@ public abstract class LocalDatabase extends RoomDatabase {
     }
 
     public abstract BookmarkDao bookmarkDao();
+
     public abstract BookmarkListDao bookmarkListDao();
+
     public abstract BookmarkListCrossRefDao bookmarkListCrossRefDao();
 }

@@ -4,18 +4,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.view.MenuHost;
-import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,8 +35,15 @@ public class HomeFragment extends Fragment {
 
     private RecyclerView mMainRecyclerView;
     private MainListAdapter mMainListAdapter;
+    Observer<List<Bookmark>> bookmarkListUpdateObserver = new Observer<List<Bookmark>>() {
+        @Override
+        public void onChanged(List<Bookmark> userArrayList) {
+            mMainListAdapter.updateBookmarkList(userArrayList);
+        }
+    };
     private List<Bookmark> bookmarkList;
     private LocalDatabase localDatabase;
+    private HomeViewModel viewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -48,7 +51,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
         localDatabase = LocalDatabase.getDatabase(getActivity().getApplicationContext());
-        testPrePopulateDB(); // DEV
+        // testPrePopulateDB(); // DEV
         mMainRecyclerView = binding.getRoot().findViewById(R.id.main_recycler_view);
         mMainRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         try {
@@ -66,8 +69,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadBookmarks() throws Exception {
-        bookmarkList = localDatabase.bookmarkDao().getAll();
-        mMainListAdapter = new MainListAdapter(bookmarkList);
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        localDatabase.bookmarkDao().getAllLive().observe(getViewLifecycleOwner(), bookmarkListUpdateObserver);
+        mMainListAdapter = new MainListAdapter();
         mMainRecyclerView.setAdapter(mMainListAdapter);
         mMainRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity().getApplicationContext(), mMainRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override

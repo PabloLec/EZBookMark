@@ -8,7 +8,6 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import dev.pablolec.ezbookmark.model.Bookmark;
 import dev.pablolec.ezbookmark.model.BookmarkList;
 
 @Dao
