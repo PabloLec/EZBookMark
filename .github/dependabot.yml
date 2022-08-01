@@ -11,6 +11,6 @@ updates:
       interval: "daily"
       
   - package-ecosystem: "gradle"
-    directory: "/app/directory"
+    directory: "/app/"
     schedule:
       interval: "daily"
