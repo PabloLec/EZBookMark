@@ -1,4 +1,4 @@
-package dev.pablolec.ezbookmark.ui.home;
+package dev.pablolec.ezbookmark.ui.bookmark;
 
 import androidx.lifecycle.ViewModel;
 
@@ -8,11 +8,11 @@ import java.util.List;
 import dev.pablolec.ezbookmark.model.Bookmark;
 import dev.pablolec.ezbookmark.repository.LocalDatabase;
 
-public class HomeViewModel extends ViewModel {
+public class BookmarkViewModel extends ViewModel {
     private final LocalDatabase localDatabase;
     List<Bookmark> bookmarkArrayList;
 
-    public HomeViewModel() {
+    public BookmarkViewModel() {
         localDatabase = LocalDatabase.getDatabase();
         init();
     }

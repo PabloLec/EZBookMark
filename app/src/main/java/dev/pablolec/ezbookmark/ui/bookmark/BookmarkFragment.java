@@ -1,4 +1,4 @@
-package dev.pablolec.ezbookmark.ui.home;
+package dev.pablolec.ezbookmark.ui.bookmark;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -25,13 +25,13 @@ import java.util.List;
 import dev.pablolec.ezbookmark.App;
 import dev.pablolec.ezbookmark.R;
 import dev.pablolec.ezbookmark.adapter.BookmarkAdapter;
-import dev.pablolec.ezbookmark.databinding.FragmentHomeBinding;
+import dev.pablolec.ezbookmark.databinding.FragmentBookmarkBinding;
 import dev.pablolec.ezbookmark.listener.RecyclerTouchListener;
 import dev.pablolec.ezbookmark.model.Bookmark;
 import dev.pablolec.ezbookmark.repository.LocalDatabase;
 
-public class HomeFragment extends Fragment {
-    private FragmentHomeBinding binding;
+public class BookmarkFragment extends Fragment {
+    private FragmentBookmarkBinding binding;
 
     private RecyclerView mMainRecyclerView;
     private BookmarkAdapter mBookmarkAdapter;
@@ -43,12 +43,12 @@ public class HomeFragment extends Fragment {
     };
     private List<Bookmark> bookmarkList;
     private LocalDatabase localDatabase;
-    private HomeViewModel viewModel;
+    private BookmarkViewModel viewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentBookmarkBinding.inflate(inflater, container, false);
 
         localDatabase = LocalDatabase.getDatabase(getActivity().getApplicationContext());
         // testPrePopulateDB(); // DEV
@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadBookmarks() throws Exception {
-        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        viewModel = new ViewModelProvider(this).get(BookmarkViewModel.class);
         localDatabase.bookmarkDao().getAllLive().observe(getViewLifecycleOwner(), bookmarkListUpdateObserver);
         mBookmarkAdapter = new BookmarkAdapter();
         mMainRecyclerView.setAdapter(mBookmarkAdapter);
