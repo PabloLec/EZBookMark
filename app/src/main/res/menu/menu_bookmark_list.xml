@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menu_bookmark_list">
+    <item
+        android:id="@+id/menu_bookmark_list_add"
+        android:icon="@drawable/baseline_add_black_24"
+        android:title="Add"
+        app:showAsAction="ifRoom"></item>
+    <item
+        android:id="@+id/menu_bookmark_list_sort"
+        android:icon="@drawable/baseline_sort_black_24"
+        android:title="Sort"
+        app:showAsAction="ifRoom"></item>
+    <item
+        android:id="@+id/menu_bookmark_list_search"
+        android:icon="@drawable/baseline_search_black_24"
+        android:title="Search"
+        app:showAsAction="ifRoom"></item>
+</menu>

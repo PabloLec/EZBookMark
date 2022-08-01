@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -29,6 +28,7 @@ import dev.pablolec.ezbookmark.databinding.FragmentBookmarkBinding;
 import dev.pablolec.ezbookmark.listener.RecyclerTouchListener;
 import dev.pablolec.ezbookmark.model.Bookmark;
 import dev.pablolec.ezbookmark.repository.LocalDatabase;
+import dev.pablolec.ezbookmark.ui.menu.BookmarkMenu;
 
 public class BookmarkFragment extends Fragment {
     private FragmentBookmarkBinding binding;
@@ -41,6 +41,7 @@ public class BookmarkFragment extends Fragment {
             mBookmarkAdapter.updateBookmarkList(bookmarks);
         }
     };
+    private BookmarkMenu menu;
     private LocalDatabase localDatabase;
     private BookmarkViewModel viewModel;
 
@@ -48,7 +49,6 @@ public class BookmarkFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentBookmarkBinding.inflate(inflater, container, false);
-
         localDatabase = LocalDatabase.getDatabase(getActivity().getApplicationContext());
         // testPrePopulateDB(); // DEV
         mMainRecyclerView = binding.getRoot().findViewById(R.id.bookmark_recycler_view);
@@ -62,8 +62,17 @@ public class BookmarkFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        menu = new BookmarkMenu();
+        menu.setView(binding.getRoot());
+        requireActivity().addMenuProvider(menu);
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
+        requireActivity().removeMenuProvider(menu);
         binding = null;
     }
 

@@ -18,10 +18,10 @@ import dev.pablolec.ezbookmark.R;
 import dev.pablolec.ezbookmark.adapter.BookmarkListAdapter;
 import dev.pablolec.ezbookmark.databinding.FragmentBookmarkListBinding;
 import dev.pablolec.ezbookmark.listener.RecyclerTouchListener;
-import dev.pablolec.ezbookmark.model.Bookmark;
 import dev.pablolec.ezbookmark.model.BookmarkList;
 import dev.pablolec.ezbookmark.repository.LocalDatabase;
 import dev.pablolec.ezbookmark.ui.bookmark.BookmarkViewModel;
+import dev.pablolec.ezbookmark.ui.menu.BookmarkListMenu;
 
 public class BookmarkListFragment extends Fragment {
     private FragmentBookmarkListBinding binding;
@@ -34,6 +34,7 @@ public class BookmarkListFragment extends Fragment {
             mBookmarkListAdapter.updateBookmarkList(bookmarkLists);
         }
     };
+    private BookmarkListMenu menu;
     private LocalDatabase localDatabase;
     private BookmarkViewModel viewModel;
 
@@ -41,7 +42,6 @@ public class BookmarkListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentBookmarkListBinding.inflate(inflater, container, false);
-
         localDatabase = LocalDatabase.getDatabase(getActivity().getApplicationContext());
         mBookmarkListRecyclerView = binding.getRoot().findViewById(R.id.bookmark_list_recycler_view);
         mBookmarkListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -54,8 +54,17 @@ public class BookmarkListFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        menu = new BookmarkListMenu();
+        menu.setView(binding.getRoot());
+        requireActivity().addMenuProvider(menu);
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
+        requireActivity().removeMenuProvider(menu);
         binding = null;
     }
 

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/menu_bookmarks">
+    android:id="@+id/menu_bookmark">
     <item
-        android:id="@+id/menu_main_add"
+        android:id="@+id/menu_bookmark_add"
         android:icon="@drawable/baseline_add_black_24"
         android:title="Add"
         app:showAsAction="ifRoom"></item>
     <item
-        android:id="@+id/menu_main_sort"
+        android:id="@+id/menu_bookmark_sort"
         android:icon="@drawable/baseline_sort_black_24"
         android:title="Sort"
         app:showAsAction="ifRoom"></item>
     <item
-        android:id="@+id/menu_main_search"
+        android:id="@+id/menu_bookmark_search"
         android:icon="@drawable/baseline_search_black_24"
         android:title="Search"
         app:showAsAction="ifRoom"></item>
