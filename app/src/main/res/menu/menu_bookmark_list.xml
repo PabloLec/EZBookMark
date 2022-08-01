@@ -5,16 +5,16 @@
     <item
         android:id="@+id/menu_bookmark_list_add"
         android:icon="@drawable/baseline_add_black_24"
-        android:title="Add"
+        android:title="@string/title_add_bookmark_list"
         app:showAsAction="ifRoom"></item>
     <item
         android:id="@+id/menu_bookmark_list_sort"
         android:icon="@drawable/baseline_sort_black_24"
-        android:title="Sort"
+        android:title="@string/title_sort_bookmark_list"
         app:showAsAction="ifRoom"></item>
     <item
         android:id="@+id/menu_bookmark_list_search"
         android:icon="@drawable/baseline_search_black_24"
-        android:title="Search"
+        android:title="@string/title_search_bookmark_list"
         app:showAsAction="ifRoom"></item>
 </menu>

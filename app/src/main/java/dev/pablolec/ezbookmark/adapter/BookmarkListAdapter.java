@@ -43,6 +43,10 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return bookmarkLists.size();
     }
 
+    public BookmarkList getBookmarkList(int index) {
+        return bookmarkLists.get(index);
+    }
+
     public void updateBookmarkList(final List<BookmarkList> bookmarkLists) {
         this.bookmarkLists.clear();
         this.bookmarkLists = (ArrayList<BookmarkList>) bookmarkLists;

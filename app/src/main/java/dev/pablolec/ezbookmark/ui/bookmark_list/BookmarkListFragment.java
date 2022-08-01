@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,10 +19,11 @@ import dev.pablolec.ezbookmark.databinding.FragmentBookmarkListBinding;
 import dev.pablolec.ezbookmark.listener.RecyclerTouchListener;
 import dev.pablolec.ezbookmark.model.BookmarkList;
 import dev.pablolec.ezbookmark.repository.LocalDatabase;
-import dev.pablolec.ezbookmark.ui.bookmark.BookmarkViewModel;
+import dev.pablolec.ezbookmark.ui.FragmentWithMenu;
+import dev.pablolec.ezbookmark.ui.menu.BookmarkListAltMenu;
 import dev.pablolec.ezbookmark.ui.menu.BookmarkListMenu;
 
-public class BookmarkListFragment extends Fragment {
+public class BookmarkListFragment extends FragmentWithMenu {
     private FragmentBookmarkListBinding binding;
 
     private RecyclerView mBookmarkListRecyclerView;
@@ -34,9 +34,8 @@ public class BookmarkListFragment extends Fragment {
             mBookmarkListAdapter.updateBookmarkList(bookmarkLists);
         }
     };
-    private BookmarkListMenu menu;
     private LocalDatabase localDatabase;
-    private BookmarkViewModel viewModel;
+    private BookmarkListViewModel viewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -45,8 +44,10 @@ public class BookmarkListFragment extends Fragment {
         localDatabase = LocalDatabase.getDatabase(getActivity().getApplicationContext());
         mBookmarkListRecyclerView = binding.getRoot().findViewById(R.id.bookmark_list_recycler_view);
         mBookmarkListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        menu = new BookmarkListMenu();
+        menuAlt = new BookmarkListAltMenu();
         try {
-            loadBookmarks();
+            load();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,30 +57,40 @@ public class BookmarkListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        menu = new BookmarkListMenu();
-        menu.setView(binding.getRoot());
-        requireActivity().addMenuProvider(menu);
+        ((BookmarkListMenu) menu).setView(binding.getRoot());
+        ((BookmarkListAltMenu) menuAlt).setView(binding.getRoot());
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        requireActivity().removeMenuProvider(menu);
         binding = null;
     }
 
-    private void loadBookmarks() {
-        viewModel = new ViewModelProvider(this).get(BookmarkViewModel.class);
+    @Override
+    protected void delete() {
+        LocalDatabase.getDatabase().bookmarkListDao().delete(((BookmarkListAltMenu) menuAlt).getSelected());
+    }
+
+    private void load() {
+        viewModel = new ViewModelProvider(this).get(BookmarkListViewModel.class);
         localDatabase.bookmarkListDao().getAllLive().observe(getViewLifecycleOwner(), bookmarkListUpdateObserver);
         mBookmarkListAdapter = new BookmarkListAdapter();
         mBookmarkListRecyclerView.setAdapter(mBookmarkListAdapter);
         mBookmarkListRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity().getApplicationContext(), mBookmarkListRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
+                if (isMenuAltLoaded) {
+                    unloadAltMenu();
+                    return;
+                }
             }
 
             @Override
             public void onLongClick(View view, int position) {
+                loadAltMenu();
+                ((BookmarkListAltMenu) menuAlt).setSelected(mBookmarkListAdapter.getBookmarkList(position));
+                ((BookmarkListAltMenu) menuAlt).setDeleteDialog(getDeleteDialog());
             }
         }));
     }

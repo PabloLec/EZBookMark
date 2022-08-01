@@ -1,6 +1,5 @@
 package dev.pablolec.ezbookmark.ui.bookmark;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,13 +21,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import dev.pablolec.ezbookmark.App;
-import dev.pablolec.ezbookmark.FragmentWithMenu;
 import dev.pablolec.ezbookmark.R;
 import dev.pablolec.ezbookmark.adapter.BookmarkAdapter;
 import dev.pablolec.ezbookmark.databinding.FragmentBookmarkBinding;
 import dev.pablolec.ezbookmark.listener.RecyclerTouchListener;
 import dev.pablolec.ezbookmark.model.Bookmark;
 import dev.pablolec.ezbookmark.repository.LocalDatabase;
+import dev.pablolec.ezbookmark.ui.FragmentWithMenu;
 import dev.pablolec.ezbookmark.ui.menu.BookmarkAltMenu;
 import dev.pablolec.ezbookmark.ui.menu.BookmarkMenu;
 
@@ -59,7 +56,7 @@ public class BookmarkFragment extends FragmentWithMenu {
         menu = new BookmarkMenu();
         menuAlt = new BookmarkAltMenu();
         try {
-            loadBookmarks();
+            load();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -69,8 +66,8 @@ public class BookmarkFragment extends FragmentWithMenu {
     @Override
     public void onResume() {
         super.onResume();
-        menu.setView(binding.getRoot());
-        menuAlt.setView(binding.getRoot());
+        ((BookmarkMenu) menu).setView(binding.getRoot());
+        ((BookmarkAltMenu) menuAlt).setView(binding.getRoot());
     }
 
     @Override
@@ -79,7 +76,12 @@ public class BookmarkFragment extends FragmentWithMenu {
         binding = null;
     }
 
-    private void loadBookmarks() {
+    @Override
+    protected void delete() {
+        LocalDatabase.getDatabase().bookmarkDao().delete(((BookmarkAltMenu) menuAlt).getSelected());
+    }
+
+    private void load() {
         viewModel = new ViewModelProvider(this).get(BookmarkViewModel.class);
         localDatabase.bookmarkDao().getAllLive().observe(getViewLifecycleOwner(), bookmarkListUpdateObserver);
         mBookmarkAdapter = new BookmarkAdapter();
@@ -102,8 +104,8 @@ public class BookmarkFragment extends FragmentWithMenu {
             @Override
             public void onLongClick(View view, int position) {
                 loadAltMenu();
-                menuAlt.setSelectedBookmark(mBookmarkAdapter.getBookmark(position));
-                menuAlt.setDeleteDialog(getDeleteDialog());
+                ((BookmarkAltMenu) menuAlt).setSelected(mBookmarkAdapter.getBookmark(position));
+                ((BookmarkAltMenu) menuAlt).setDeleteDialog(getDeleteDialog());
             }
         }));
     }

@@ -26,19 +26,21 @@ public class BookmarkMenu implements MenuProvider {
 
     @Override
     public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.menu_bookmark_add:
-                BookmarkPopUp popup = new BookmarkPopUp();
-                popup.showPopupWindow(view);
-                return true;
-            case R.id.menu_bookmark_sort:
-                Toast.makeText(view.getContext(), "BOOKMARK SORT", Toast.LENGTH_LONG).show();
-                return true;
-            case R.id.menu_bookmark_search:
-                Toast.makeText(view.getContext(), "BOOKMARK SEARCH", Toast.LENGTH_LONG).show();
-                return true;
-            default:
-                return false;
+        if (menuItem.getTitle() == null) return false;
+
+        String title = menuItem.getTitle().toString();
+        if (title.equals(view.getContext().getResources().getString(R.string.title_add_bookmark))) {
+            BookmarkPopUp popup = new BookmarkPopUp();
+            popup.showPopupWindow(view);
+            return true;
+        } else if (title.equals(view.getContext().getResources().getString(R.string.title_sort_bookmark))) {
+            Toast.makeText(view.getContext(), "BOOKMARK SORT", Toast.LENGTH_LONG).show();
+            return true;
+        } else if (title.equals(view.getContext().getResources().getString(R.string.title_search_bookmark))) {
+            Toast.makeText(view.getContext(), "BOOKMARK SEARCH", Toast.LENGTH_LONG).show();
+            return true;
+        } else {
+            return false;
         }
     }
 }

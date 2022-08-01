@@ -13,4 +13,16 @@
 
     <string name="missing_text">MISSING TEXT</string>
     <string name="favicon">Favicon</string>
+
+    <string name="title_add_bookmark">Add bookmark</string>
+    <string name="title_search_bookmark">Search bookmark</string>
+    <string name="title_sort_bookmark">Sort bookmark</string>
+    <string name="title_edit_bookmark">Edit bookmark</string>
+    <string name="title_delete_bookmark">Delete bookmark</string>
+
+    <string name="title_add_bookmark_list">Add bookmark list</string>
+    <string name="title_search_bookmark_list">Search bookmark list</string>
+    <string name="title_sort_bookmark_list">Sort bookmark list</string>
+    <string name="title_edit_bookmark_list">Edit bookmark list</string>
+    <string name="title_delete_bookmark_list">Delete bookmark list</string>
 </resources>

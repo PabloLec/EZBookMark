@@ -10,23 +10,23 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.MenuProvider;
 
 import dev.pablolec.ezbookmark.R;
-import dev.pablolec.ezbookmark.model.Bookmark;
-import dev.pablolec.ezbookmark.ui.popups.BookmarkPopUp;
+import dev.pablolec.ezbookmark.model.BookmarkList;
+import dev.pablolec.ezbookmark.ui.popups.BookmarkListPopUp;
 
-public class BookmarkAltMenu implements MenuProvider {
+public class BookmarkListAltMenu implements MenuProvider {
     private View view;
-    private Bookmark selected;
+    private BookmarkList selected;
     private AlertDialog deleteDialog;
 
     public void setView(View view) {
         this.view = view;
     }
 
-    public Bookmark getSelected() {
+    public BookmarkList getSelected() {
         return selected;
     }
 
-    public void setSelected(Bookmark selected) {
+    public void setSelected(BookmarkList selected) {
         this.selected = selected;
     }
 
@@ -36,7 +36,7 @@ public class BookmarkAltMenu implements MenuProvider {
 
     @Override
     public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.menu_bookmark_alt, menu);
+        menuInflater.inflate(R.menu.menu_bookmark_list_alt, menu);
     }
 
     @Override
@@ -44,11 +44,11 @@ public class BookmarkAltMenu implements MenuProvider {
         if (menuItem.getTitle() == null) return false;
 
         String title = menuItem.getTitle().toString();
-        if (title.equals(view.getContext().getResources().getString(R.string.title_edit_bookmark))) {
-            BookmarkPopUp popup = new BookmarkPopUp();
+        if (title.equals(view.getContext().getResources().getString(R.string.title_edit_bookmark_list))) {
+            BookmarkListPopUp popup = new BookmarkListPopUp();
             popup.showPopupWindow(view, selected);
             return true;
-        } else if (title.equals(view.getContext().getResources().getString(R.string.title_delete_bookmark))) {
+        } else if (title.equals(view.getContext().getResources().getString(R.string.title_delete_bookmark_list))) {
             deleteDialog.show();
             return true;
         } else {

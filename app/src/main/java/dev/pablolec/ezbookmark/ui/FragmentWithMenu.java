@@ -1,17 +1,14 @@
-package dev.pablolec.ezbookmark;
+package dev.pablolec.ezbookmark.ui;
 
 import android.content.DialogInterface;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 
-import dev.pablolec.ezbookmark.repository.LocalDatabase;
-import dev.pablolec.ezbookmark.ui.menu.BookmarkAltMenu;
-import dev.pablolec.ezbookmark.ui.menu.BookmarkMenu;
-
 public class FragmentWithMenu extends Fragment {
-    protected BookmarkMenu menu;
-    protected BookmarkAltMenu menuAlt;
+    protected MenuProvider menu;
+    protected MenuProvider menuAlt;
     protected boolean isMenuAltLoaded = false;
 
     @Override
@@ -47,6 +44,9 @@ public class FragmentWithMenu extends Fragment {
         requireActivity().removeMenuProvider(menuAlt);
     }
 
+    protected void delete() {
+    }
+
     protected AlertDialog getDeleteDialog() {
         return new AlertDialog.Builder(getContext())
                 .setIcon(android.R.drawable.ic_dialog_alert)
@@ -55,11 +55,11 @@ public class FragmentWithMenu extends Fragment {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        LocalDatabase.getDatabase().bookmarkDao().delete(menuAlt.getSelectedBookmark());
+                        delete();
                         unloadAltMenu();
                     }
                 })
-                .setNegativeButton("No",null).create();
+                .setNegativeButton("No", null).create();
     }
 
 }

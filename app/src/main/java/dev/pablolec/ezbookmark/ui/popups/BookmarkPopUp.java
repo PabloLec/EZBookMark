@@ -28,7 +28,7 @@ public class BookmarkPopUp {
     }
 
     public void showPopupWindow(final View view) {
-        showPopupWindow(view, new Bookmark("",""));
+        showPopupWindow(view, new Bookmark("", ""));
     }
 
     public void showPopupWindow(final View view, Bookmark bookmark) {

@@ -28,6 +28,10 @@ public class BookmarkListPopUp {
     }
 
     public void showPopupWindow(final View view) {
+        showPopupWindow(view, new BookmarkList(""));
+    }
+
+    public void showPopupWindow(final View view, BookmarkList bookmarkList) {
         LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(view.getContext().LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.bookmark_list_popup, null);
         int width = LinearLayout.LayoutParams.MATCH_PARENT;
@@ -38,13 +42,14 @@ public class BookmarkListPopUp {
         dimBehind(popupWindow);
 
         EditText name = popupView.findViewById(R.id.bookmark_list_name_edit_text);
+        name.setText(bookmarkList.getName());
         Button confirmButton = popupView.findViewById(R.id.bookmark_list_confirm_button);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BookmarkList bookmark = new BookmarkList(name.getText().toString());
+                bookmarkList.setName(name.getText().toString());
                 LocalDatabase localDatabase = LocalDatabase.getDatabase();
-                localDatabase.bookmarkListDao().insert(bookmark);
+                localDatabase.bookmarkListDao().insert(bookmarkList);
                 Toast.makeText(view.getContext(), "Bookmark List added", Toast.LENGTH_SHORT).show();
                 popupWindow.dismiss();
             }
