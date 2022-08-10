@@ -15,5 +15,9 @@
         android:id="@+id/nav_lists"
         android:name="dev.pablolec.ezbookmark.ui.bookmark_list.BookmarkListFragment"
         android:label="@string/menu_lists"
-        tools:layout="@layout/fragment_bookmark_list" />
+        tools:layout="@layout/fragment_bookmark_list" >
+        <action
+            android:id="@+id/open_sub_list"
+            app:destination="@id/nav_home" />
+    </fragment>
 </navigation>

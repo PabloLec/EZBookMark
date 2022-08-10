@@ -2,8 +2,10 @@ package dev.pablolec.ezbookmark;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -12,10 +14,13 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 
 import dev.pablolec.ezbookmark.databinding.ActivityMainBinding;
+import dev.pablolec.ezbookmark.model.BookmarkList;
+import dev.pablolec.ezbookmark.ui.bookmark.BookmarkFragment;
 
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private BookmarkList currentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,5 +51,17 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    @Override
+    public void onBackPressed() {
+        setCurrentList(null);
+        super.onBackPressed();
+    }
 
+    public BookmarkList getCurrentList() {
+        return currentList;
+    }
+
+    public void setCurrentList(@Nullable BookmarkList currentList) {
+        this.currentList = currentList;
+    }
 }

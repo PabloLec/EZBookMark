@@ -10,6 +10,7 @@ import androidx.room.Query;
 import java.util.List;
 
 import dev.pablolec.ezbookmark.model.Bookmark;
+import dev.pablolec.ezbookmark.model.BookmarkList;
 
 @Dao
 public interface BookmarkDao {
@@ -19,6 +20,11 @@ public interface BookmarkDao {
     @Query("SELECT * FROM bookmark")
     LiveData<List<Bookmark>> getAllLive();
 
+    @Query("SELECT * FROM bookmark " +
+            "JOIN BookmarkListCrossRef on bookmark.bookmarkId = BookmarkListCrossRef.bookmarkId " +
+            "WHERE BookmarkListCrossRef.bookmarkListId = :bookmarkListId")
+    LiveData<List<Bookmark>> getAllFromList(int bookmarkListId);
+
     @Query("SELECT * FROM bookmark WHERE bookmarkId IN (:ids)")
     List<Bookmark> getById(List<Integer> ids);
 
@@ -26,7 +32,7 @@ public interface BookmarkDao {
     void insertAll(Bookmark... bookmarks);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Bookmark bookmark);
+    long insert(Bookmark bookmark);
 
     @Delete
     void delete(Bookmark bookmark);

@@ -14,9 +14,17 @@ import android.widget.Toast;
 
 import dev.pablolec.ezbookmark.R;
 import dev.pablolec.ezbookmark.model.Bookmark;
+import dev.pablolec.ezbookmark.model.BookmarkList;
+import dev.pablolec.ezbookmark.model.BookmarkListCrossRef;
 import dev.pablolec.ezbookmark.repository.LocalDatabase;
 
 public class BookmarkPopUp {
+    private BookmarkList list;
+
+    public BookmarkPopUp(BookmarkList list) {
+        this.list = list;
+    }
+
     public static void dimBehind(PopupWindow popupWindow) {
         View container = popupWindow.getContentView().getRootView();
         Context context = popupWindow.getContentView().getContext();
@@ -51,8 +59,7 @@ public class BookmarkPopUp {
             public void onClick(View v) {
                 bookmark.setName(name.getText().toString());
                 bookmark.setUrl(url.getText().toString());
-                LocalDatabase localDatabase = LocalDatabase.getDatabase();
-                localDatabase.bookmarkDao().insert(bookmark);
+                insert(bookmark);
                 Toast.makeText(view.getContext(), "Bookmark added", Toast.LENGTH_SHORT).show();
                 popupWindow.dismiss();
             }
@@ -67,6 +74,16 @@ public class BookmarkPopUp {
                 return true;
             }
         });
+    }
+
+    private void insert(Bookmark bookmark) {
+        LocalDatabase localDatabase = LocalDatabase.getDatabase();
+        long bookmarkId = localDatabase.bookmarkDao().insert(bookmark);
+
+        if (list != null) {
+            BookmarkListCrossRef crossRef = new BookmarkListCrossRef(bookmarkId, list.bookmarkListId);
+            localDatabase.bookmarkListCrossRefDao().insert(crossRef);
+        }
     }
 
 }

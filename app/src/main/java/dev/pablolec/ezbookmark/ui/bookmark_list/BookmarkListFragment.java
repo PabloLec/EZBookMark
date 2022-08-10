@@ -6,13 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import dev.pablolec.ezbookmark.MainActivity;
 import dev.pablolec.ezbookmark.R;
 import dev.pablolec.ezbookmark.adapter.BookmarkListAdapter;
 import dev.pablolec.ezbookmark.databinding.FragmentBookmarkListBinding;
@@ -20,6 +23,7 @@ import dev.pablolec.ezbookmark.listener.RecyclerTouchListener;
 import dev.pablolec.ezbookmark.model.BookmarkList;
 import dev.pablolec.ezbookmark.repository.LocalDatabase;
 import dev.pablolec.ezbookmark.ui.FragmentWithMenu;
+import dev.pablolec.ezbookmark.ui.bookmark.BookmarkFragment;
 import dev.pablolec.ezbookmark.ui.menu.BookmarkListAltMenu;
 import dev.pablolec.ezbookmark.ui.menu.BookmarkListMenu;
 
@@ -85,6 +89,8 @@ public class BookmarkListFragment extends FragmentWithMenu {
                     unselectAll();
                     return;
                 }
+                ((MainActivity) getActivity()).setCurrentList(mBookmarkListAdapter.getBookmarkList(position));
+                Navigation.findNavController(view).navigate(R.id.open_sub_list);
             }
 
             @Override

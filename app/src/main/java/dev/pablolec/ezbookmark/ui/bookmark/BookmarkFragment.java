@@ -21,11 +21,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import dev.pablolec.ezbookmark.App;
+import dev.pablolec.ezbookmark.MainActivity;
 import dev.pablolec.ezbookmark.R;
 import dev.pablolec.ezbookmark.adapter.BookmarkAdapter;
 import dev.pablolec.ezbookmark.databinding.FragmentBookmarkBinding;
 import dev.pablolec.ezbookmark.listener.RecyclerTouchListener;
 import dev.pablolec.ezbookmark.model.Bookmark;
+import dev.pablolec.ezbookmark.model.BookmarkList;
 import dev.pablolec.ezbookmark.repository.LocalDatabase;
 import dev.pablolec.ezbookmark.ui.FragmentWithMenu;
 import dev.pablolec.ezbookmark.ui.menu.BookmarkAltMenu;
@@ -44,6 +46,7 @@ public class BookmarkFragment extends FragmentWithMenu {
     };
     private LocalDatabase localDatabase;
     private BookmarkViewModel viewModel;
+    private BookmarkList list;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -53,10 +56,11 @@ public class BookmarkFragment extends FragmentWithMenu {
         // testPrePopulateDB(); // DEV
         mMainRecyclerView = binding.getRoot().findViewById(R.id.bookmark_recycler_view);
         mMainRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        menu = new BookmarkMenu();
-        menuAlt = new BookmarkAltMenu();
+        list = ((MainActivity) getActivity()).getCurrentList();
+        menu = new BookmarkMenu(list);
+        menuAlt = new BookmarkAltMenu(list);
         try {
-            load();
+            load(list);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,12 +82,24 @@ public class BookmarkFragment extends FragmentWithMenu {
 
     @Override
     protected void delete() {
-        LocalDatabase.getDatabase().bookmarkDao().delete(((BookmarkAltMenu) menuAlt).getSelected());
+        Bookmark selected = ((BookmarkAltMenu) menuAlt).getSelected();
+        LocalDatabase.getDatabase()
+                .bookmarkDao()
+                .delete(selected);
+        if (list != null) {
+            LocalDatabase.getDatabase()
+                    .bookmarkListCrossRefDao()
+                    .deleteByBookmarkAndList(selected.bookmarkId, list.bookmarkListId);
+        }
     }
 
-    private void load() {
+    private void load(BookmarkList list) {
         viewModel = new ViewModelProvider(this).get(BookmarkViewModel.class);
-        localDatabase.bookmarkDao().getAllLive().observe(getViewLifecycleOwner(), bookmarkListUpdateObserver);
+        if (list == null) {
+            localDatabase.bookmarkDao().getAllLive().observe(getViewLifecycleOwner(), bookmarkListUpdateObserver);
+        } else {
+            localDatabase.bookmarkDao().getAllFromList(list.bookmarkListId).observe(getViewLifecycleOwner(), bookmarkListUpdateObserver);
+        }
         mBookmarkAdapter = new BookmarkAdapter();
         mMainRecyclerView.setAdapter(mBookmarkAdapter);
         mMainRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity().getApplicationContext(), mMainRecyclerView, new RecyclerTouchListener.ClickListener() {

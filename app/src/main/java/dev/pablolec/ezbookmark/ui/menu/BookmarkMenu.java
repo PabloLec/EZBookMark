@@ -7,13 +7,20 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.MenuProvider;
 
 import dev.pablolec.ezbookmark.R;
+import dev.pablolec.ezbookmark.model.BookmarkList;
 import dev.pablolec.ezbookmark.ui.popups.BookmarkPopUp;
 
 public class BookmarkMenu implements MenuProvider {
     private View view;
+    private BookmarkList list;
+
+    public BookmarkMenu(@Nullable BookmarkList list) {
+        this.list = list;
+    }
 
     public void setView(View view) {
         this.view = view;
@@ -30,7 +37,7 @@ public class BookmarkMenu implements MenuProvider {
 
         String title = menuItem.getTitle().toString();
         if (title.equals(view.getContext().getResources().getString(R.string.title_add_bookmark))) {
-            BookmarkPopUp popup = new BookmarkPopUp();
+            BookmarkPopUp popup = new BookmarkPopUp(list);
             popup.showPopupWindow(view);
             return true;
         } else if (title.equals(view.getContext().getResources().getString(R.string.title_sort_bookmark))) {

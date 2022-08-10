@@ -11,12 +11,18 @@ import androidx.core.view.MenuProvider;
 
 import dev.pablolec.ezbookmark.R;
 import dev.pablolec.ezbookmark.model.Bookmark;
+import dev.pablolec.ezbookmark.model.BookmarkList;
 import dev.pablolec.ezbookmark.ui.popups.BookmarkPopUp;
 
 public class BookmarkAltMenu implements MenuProvider {
     private View view;
     private Bookmark selected;
     private AlertDialog deleteDialog;
+    private BookmarkList list;
+
+    public BookmarkAltMenu(BookmarkList list) {
+        this.list = list;
+    }
 
     public void setView(View view) {
         this.view = view;
@@ -45,7 +51,7 @@ public class BookmarkAltMenu implements MenuProvider {
 
         String title = menuItem.getTitle().toString();
         if (title.equals(view.getContext().getResources().getString(R.string.title_edit_bookmark))) {
-            BookmarkPopUp popup = new BookmarkPopUp();
+            BookmarkPopUp popup = new BookmarkPopUp(list);
             popup.showPopupWindow(view, selected);
             return true;
         } else if (title.equals(view.getContext().getResources().getString(R.string.title_delete_bookmark))) {

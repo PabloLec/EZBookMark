@@ -8,6 +8,7 @@ import androidx.room.Query;
 import java.util.List;
 
 import dev.pablolec.ezbookmark.model.Bookmark;
+import dev.pablolec.ezbookmark.model.BookmarkList;
 import dev.pablolec.ezbookmark.model.BookmarkListCrossRef;
 
 @Dao
@@ -26,4 +27,7 @@ public interface BookmarkListCrossRefDao {
 
     @Delete
     void delete(BookmarkListCrossRef bookmarkListCrossRef);
+
+    @Query("DELETE FROM BookmarkListCrossRef WHERE bookmarkId = :bookmarkId and bookmarkListId = :listId")
+    void deleteByBookmarkAndList(int bookmarkId, int listId);
 }
